@@ -163,8 +163,12 @@ namespace TryRC
             Properties.Settings.Default.Password = passwordTextBox.Text;
             Properties.Settings.Default.Save();
 
-            
-            var ringCentral = new RingCentral.SDK.SDK("your appKey", "your appSecret", "Ring Central apiEndPoint", "Application Name", "Application Version").GetPlatform();
+            var ringCentral = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text, apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
+
+            var tokens = usernameTextBox.Text.Split('-');
+            var username = tokens[0];
+            var extension = tokens.Length > 1 ? tokens[1] : null;
+            var response = ringCentral.Authorize(username, extension, passwordTextBox.Text, true);
         }
     }
 }
