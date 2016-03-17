@@ -162,6 +162,9 @@ namespace TryRC
             Properties.Settings.Default.Username = usernameTextBox.Text;
             Properties.Settings.Default.Password = passwordTextBox.Text;
             Properties.Settings.Default.Save();
+
+            
+            var ringCentral = new RingCentral.SDK.SDK("your appKey", "your appSecret", "Ring Central apiEndPoint", "Application Name", "Application Version").GetPlatform();
         }
     }
 }
