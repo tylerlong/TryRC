@@ -1,0 +1,19 @@
+﻿<Window x:Class="TryRC.MainWindow"
+        xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+        xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+        xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+        xmlns:local="clr-namespace:TryRC"
+        mc:Ignorable="d"
+        Title="Try RC" Height="512" Width="512">
+    <Grid>
+        <TextBox x:Name="appKeyTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,16,16,0" VerticalAlignment="Top" Text="App Key" GotFocus="AppKeyTextBoxGotFocus" LostFocus="AppKeyTextBoxLostFocus"/>
+        <TextBox x:Name="appSecretTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,64,16,0" Text="App Secret" VerticalAlignment="Top" LostFocus="AppSecretTextBoxLostFocus" GotFocus="AppSecretTextBoxGotFocus"/>
+        <TextBox x:Name="apiEndPointTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,112,16,0"  Text="API EndPoint" VerticalAlignment="Top" GotFocus="ApiEndPointTextBoxGotFocus" LostFocus="ApiEndPointTextBoxLostFocus"/>
+        <TextBox x:Name="appNameTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,160,16,0" Text="App Name" VerticalAlignment="Top" LostFocus="AppNameTextBoxLostFocus" GotFocus="AppNameTextBoxGotFocus"/>
+        <TextBox x:Name="appVersionTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,208,16,0" Text="App Version" VerticalAlignment="Top" GotFocus="AppVersionTextBoxGotFocus" LostFocus="AppVersionTextBoxLostFocus"/>
+        <TextBox x:Name="usernameTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,256,16,0" Text="Phone number with or without extension, separated by -" VerticalAlignment="Top" LostFocus="UsernameTextBoxLostFocus" GotFocus="UsernameTextBoxGotFocus"/>
+        <TextBox x:Name="passwordTextBox" HorizontalAlignment="Stretch" Height="28" Margin="16,304,16,0" Text="Password" VerticalAlignment="Top" LostFocus="PasswordTextBoxLostFocus" GotFocus="PasswordTextBoxGotFocus"/>
+        <Button x:Name="runButton" Content="Run" HorizontalAlignment="Center" Margin="0,0,0,16" VerticalAlignment="Bottom" Width="75" Click="runButton_Click"/>
+    </Grid>
+</Window>
