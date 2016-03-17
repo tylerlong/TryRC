@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Diagnostics;
 
 namespace TryRC
 {
@@ -7,6 +8,8 @@ namespace TryRC
     /// </summary>
     public partial class MainWindow : Window
     {
+        private RingCentral.SDK.Platform platform;
+
         public MainWindow()
         {
             InitializeComponent();
@@ -163,12 +166,22 @@ namespace TryRC
             Properties.Settings.Default.Password = passwordTextBox.Text;
             Properties.Settings.Default.Save();
 
-            var ringCentral = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text, apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
+            if (platform == null)
+            {
+                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text, apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
+            }
+            
+            Debug.WriteLine(platform.IsAuthorized());
 
-            var tokens = usernameTextBox.Text.Split('-');
-            var username = tokens[0];
-            var extension = tokens.Length > 1 ? tokens[1] : null;
-            var response = ringCentral.Authorize(username, extension, passwordTextBox.Text, true);
+            if (!platform.IsAuthorized())
+            {
+                var tokens = usernameTextBox.Text.Split('-');
+                var username = tokens[0];
+                var extension = tokens.Length > 1 ? tokens[1] : null;
+                var response = platform.Authorize(username, extension, passwordTextBox.Text, true);
+                Debug.WriteLine(platform.IsAuthorized());
+            }
+            Debug.WriteLine(platform.IsAuthorized());
         }
     }
 }
