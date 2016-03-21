@@ -168,7 +168,8 @@ namespace TryRC
 
             if (platform == null)
             {
-                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text, apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
+                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
+                    apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
             }
 
             if (!platform.IsAuthorized())
