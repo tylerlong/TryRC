@@ -170,18 +170,19 @@ namespace TryRC
             {
                 platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text, apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
             }
-            
-            Debug.WriteLine(platform.IsAuthorized());
 
             if (!platform.IsAuthorized())
             {
                 var tokens = usernameTextBox.Text.Split('-');
                 var username = tokens[0];
                 var extension = tokens.Length > 1 ? tokens[1] : null;
-                var response = platform.Authorize(username, extension, passwordTextBox.Text, true);
-                Debug.WriteLine(platform.IsAuthorized());
+                platform.Authorize(username, extension, passwordTextBox.Text, true);
             }
-            Debug.WriteLine(platform.IsAuthorized());
+
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/sms", 
+                "{ \"text\": \"hello world\", \"from\": { \"phoneNumber\": \"17322764403\" }, \"to\": [{ \"phoneNumber\": \"147258369\" }] }");
+            var response = platform.Post(request);
+            Debug.WriteLine(response.GetStatus());
         }
     }
 }
