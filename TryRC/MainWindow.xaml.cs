@@ -180,8 +180,8 @@ namespace TryRC
                 platform.Authorize(username, extension, passwordTextBox.Text, true);
             }
 
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/sms", 
-                "{ \"text\": \"hello world\", \"from\": { \"phoneNumber\": \"17322764403\" }, \"to\": [{ \"phoneNumber\": \"147258369\" }] }");
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/sms",
+                "{ \"text\": \"hello world\", \"from\": { \"phoneNumber\": \"16506417402\" }, \"to\": [{ \"phoneNumber\": \"16508370092\" }] }");
             var response = platform.Post(request);
             Debug.WriteLine(response.GetStatus());
         }
