@@ -15,3 +15,4 @@ In the feature, it will demostrate the usage of more API service endpoints.
 
 1. support more endpoints
 1. change to stack layout
+1. elegant solusion for text field placeholder
