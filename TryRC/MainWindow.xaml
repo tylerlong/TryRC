@@ -37,10 +37,10 @@
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="Service path:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <ComboBox x:Name="comboBox" >
+            <ComboBox x:Name="apiPathComboBox" >
                 <ComboBoxItem IsSelected="True">/account/~/extension/~/sms</ComboBoxItem>
                 <ComboBoxItem>/account/~/extension/~/ringout</ComboBoxItem>
-                <ComboBoxItem>/account/~/extension/~/faxs</ComboBoxItem>
+                <ComboBoxItem>/account/~/extension/~/fax</ComboBoxItem>
             </ComboBox>
         </DockPanel>
         <DockPanel Margin="8">

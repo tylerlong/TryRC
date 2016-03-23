@@ -1,5 +1,6 @@
-﻿using System.Windows;
-using System.Diagnostics;
+﻿using System.Diagnostics;
+using System.Windows;
+using System.Windows.Controls;
 
 namespace TryRC
 {
@@ -13,7 +14,7 @@ namespace TryRC
         public MainWindow()
         {
             InitializeComponent();
-            if(!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppKey))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppKey))
             {
                 appKeyTextBox.Text = Properties.Settings.Default.AppKey;
             }
@@ -41,6 +42,17 @@ namespace TryRC
             {
                 passwordTextBox.Text = Properties.Settings.Default.Password;
             }
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.APIPath))
+            {
+                foreach (var item in apiPathComboBox.Items)
+                {
+                    var comboBoxItem = item as ComboBoxItem;
+                    if (Properties.Settings.Default.APIPath == (comboBoxItem.Content as string))
+                    {
+                        apiPathComboBox.SelectedItem = item;
+                    }
+                }
+            }
         }
 
         private void runButton_Click(object sender, RoutedEventArgs e)
@@ -52,6 +64,7 @@ namespace TryRC
             Properties.Settings.Default.AppVersion = appVersionTextBox.Text;
             Properties.Settings.Default.Username = usernameTextBox.Text;
             Properties.Settings.Default.Password = passwordTextBox.Text;
+            Properties.Settings.Default.APIPath = (apiPathComboBox.SelectedItem as ComboBoxItem).Content as string;
             Properties.Settings.Default.Save();
 
             if (platform == null)

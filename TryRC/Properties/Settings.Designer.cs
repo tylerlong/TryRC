@@ -106,5 +106,29 @@ namespace TryRC.Properties {
                 this["Password"] = value;
             }
         }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string APIPath {
+            get {
+                return ((string)(this["APIPath"]));
+            }
+            set {
+                this["APIPath"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string JsonString {
+            get {
+                return ((string)(this["JsonString"]));
+            }
+            set {
+                this["JsonString"] = value;
+            }
+        }
     }
 }
