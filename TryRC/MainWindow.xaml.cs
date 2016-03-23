@@ -61,14 +61,7 @@ namespace TryRC
                     if (Properties.Settings.Default.APIPath == (comboBoxItem.Content as string))
                     {
                         apiPathComboBox.SelectedItem = item;
-                        if (dict.ContainsKey(Properties.Settings.Default.APIPath))
-                        {
-                            jsonStringTextBox.Text = dict[Properties.Settings.Default.APIPath];
-                        }
-                        else
-                        {
-                            jsonStringTextBox.Text = "";
-                        }
+                        APIPathComboBoxSelectionChanged(null, null);
                     }
                 }
             }
@@ -106,6 +99,23 @@ namespace TryRC
             var response = platform.Post(request);
             Debug.WriteLine(response.GetStatus());
             MessageBox.Show("Call API Completed", "Try RingCentral");
+        }
+
+        private void APIPathComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        {
+            if (dict == null)
+            {
+                return;
+            }
+            var apiPath = (apiPathComboBox.SelectedItem as ComboBoxItem).Content as string;
+            if (dict.ContainsKey(apiPath))
+            {
+                jsonStringTextBox.Text = dict[apiPath];
+            }
+            else
+            {
+                jsonStringTextBox.Text = "";
+            }
         }
     }
 }
