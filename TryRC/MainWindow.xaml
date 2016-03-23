@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TryRC"
         mc:Ignorable="d"
-        Title="Try RC" Height="512" Width="512">
+        Title="Try RC" Height="600" Width="512">
     <StackPanel>
         <TextBox x:Name="appKeyTextBox" Height="28" Margin="8" Text="App Key" GotFocus="AppKeyTextBoxGotFocus" LostFocus="AppKeyTextBoxLostFocus"/>
         <TextBox x:Name="appSecretTextBox" Height="28" Margin="8" Text="App Secret" LostFocus="AppSecretTextBoxLostFocus" GotFocus="AppSecretTextBoxGotFocus"/>
@@ -19,6 +19,7 @@
             <ComboBoxItem>/account/~/extension/~/ringout</ComboBoxItem>
             <ComboBoxItem>/account/~/extension/~/faxs</ComboBoxItem>
         </ComboBox>
-        <Button x:Name="runButton" Content="Run" Margin="8" Width="75" Click="runButton_Click"/>
+        <TextBox x:Name="bodyTextBox" Height="128" Margin="8" AcceptsReturn="True" TextWrapping="Wrap" Text="Json String"/>
+        <Button x:Name="runButton" Content="Call API" Margin="8" Height="32" Width="128" Click="runButton_Click"/>
     </StackPanel>
 </Window>
