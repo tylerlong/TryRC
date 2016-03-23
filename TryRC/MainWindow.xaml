@@ -7,19 +7,46 @@
         mc:Ignorable="d"
         Title="Try RC" Height="600" Width="512">
     <StackPanel>
-        <TextBox x:Name="appKeyTextBox" Height="28" Margin="8" Text="App Key" GotFocus="AppKeyTextBoxGotFocus" LostFocus="AppKeyTextBoxLostFocus"/>
-        <TextBox x:Name="appSecretTextBox" Height="28" Margin="8" Text="App Secret" LostFocus="AppSecretTextBoxLostFocus" GotFocus="AppSecretTextBoxGotFocus"/>
-        <TextBox x:Name="apiEndPointTextBox" Height="28" Margin="8"  Text="API EndPoint" GotFocus="ApiEndPointTextBoxGotFocus" LostFocus="ApiEndPointTextBoxLostFocus"/>
-        <TextBox x:Name="appNameTextBox" Height="28" Margin="8" Text="App Name" LostFocus="AppNameTextBoxLostFocus" GotFocus="AppNameTextBoxGotFocus"/>
-        <TextBox x:Name="appVersionTextBox" Height="28" Margin="8" Text="App Version" GotFocus="AppVersionTextBoxGotFocus" LostFocus="AppVersionTextBoxLostFocus"/>
-        <TextBox x:Name="usernameTextBox" Height="28" Margin="8" Text="Phone number with or without extension, separated by -" LostFocus="UsernameTextBoxLostFocus" GotFocus="UsernameTextBoxGotFocus"/>
-        <TextBox x:Name="passwordTextBox" Height="28" Margin="8" Text="Password" LostFocus="PasswordTextBoxLostFocus" GotFocus="PasswordTextBoxGotFocus"/>
-        <ComboBox x:Name="comboBox" Margin="8">
-            <ComboBoxItem IsSelected="True">/account/~/extension/~/sms</ComboBoxItem>
-            <ComboBoxItem>/account/~/extension/~/ringout</ComboBoxItem>
-            <ComboBoxItem>/account/~/extension/~/faxs</ComboBoxItem>
-        </ComboBox>
-        <TextBox x:Name="bodyTextBox" Height="128" Margin="8" AcceptsReturn="True" TextWrapping="Wrap" Text="Json String"/>
+        <DockPanel Margin="8">
+            <Label Content="APP Key:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="appKeyTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="APP Secret:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="appSecretTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="API EndPoint:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="apiEndPointTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="APP Name:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="appNameTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="APP Version:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="appVersionTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="Username:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="usernameTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="Password:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="passwordTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="Service path:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <ComboBox x:Name="comboBox" >
+                <ComboBoxItem IsSelected="True">/account/~/extension/~/sms</ComboBoxItem>
+                <ComboBoxItem>/account/~/extension/~/ringout</ComboBoxItem>
+                <ComboBoxItem>/account/~/extension/~/faxs</ComboBoxItem>
+            </ComboBox>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="JSON String:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="jsonStringTextBox" Height="128" AcceptsReturn="True" TextWrapping="Wrap"/>
+        </DockPanel>
         <Button x:Name="runButton" Content="Call API" Margin="8" Height="32" Width="128" Click="runButton_Click"/>
     </StackPanel>
 </Window>
