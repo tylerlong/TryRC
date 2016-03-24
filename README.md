@@ -4,11 +4,15 @@ Try RingCentral
 
 ![TryRC](screenshot.png)
 
-This is a WPF application which demostrates how to call the RingCentral C# SDK.
+This is a WPF application which demostrates how to use the RingCentral C# SDK.
 
-Currently what this app does is to do authentication then call the sms endpoint to send sms.
 
-In the feature, it will demostrate the usage of more API service endpoints.
+## Features demostrated
+
+1. authentication
+1. send sms
+1. ring out
+1. send fax
 
 
 ## todo
