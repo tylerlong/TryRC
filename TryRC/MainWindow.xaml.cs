@@ -1,9 +1,5 @@
-﻿using Newtonsoft.Json;
-using System.Collections.Generic;
-using System.Diagnostics;
-using System.IO;
+﻿using System.Collections.Generic;
 using System.Windows;
-using System.Windows.Controls;
 
 namespace TryRC
 {
@@ -13,11 +9,9 @@ namespace TryRC
     public partial class MainWindow : Window
     {
         private RingCentral.SDK.Platform platform;
-        private Dictionary<string, string> dict;
 
-        public MainWindow()
+        private void LoadConfig()
         {
-            InitializeComponent();
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppKey))
             {
                 appKeyTextBox.Text = Properties.Settings.Default.AppKey;
@@ -46,29 +40,21 @@ namespace TryRC
             {
                 passwordTextBox.Text = Properties.Settings.Default.Password;
             }
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.JsonString))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SmsJson))
             {
-                dict = JsonConvert.DeserializeObject<Dictionary<string, string>>(Properties.Settings.Default.JsonString);
+                smsTextBox.Text = Properties.Settings.Default.SmsJson;
             }
-            else
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.RingoutJson))
             {
-                dict = new Dictionary<string, string>();
+                ringoutTextBox.Text = Properties.Settings.Default.RingoutJson;
             }
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.APIPath))
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.FaxJson))
             {
-                foreach (var item in apiPathComboBox.Items)
-                {
-                    var comboBoxItem = item as ComboBoxItem;
-                    if (Properties.Settings.Default.APIPath == (comboBoxItem.Content as string))
-                    {
-                        apiPathComboBox.SelectedItem = item;
-                        APIPathComboBoxSelectionChanged(null, null);
-                    }
-                }
+                faxTextBox.Text = Properties.Settings.Default.FaxJson;
             }
         }
 
-        private void runButton_Click(object sender, RoutedEventArgs e)
+        private void SaveConfig()
         {
             Properties.Settings.Default.AppKey = appKeyTextBox.Text;
             Properties.Settings.Default.AppSecret = appSecretTextBox.Text;
@@ -77,11 +63,21 @@ namespace TryRC
             Properties.Settings.Default.AppVersion = appVersionTextBox.Text;
             Properties.Settings.Default.Username = usernameTextBox.Text;
             Properties.Settings.Default.Password = passwordTextBox.Text;
-            Properties.Settings.Default.APIPath = (apiPathComboBox.SelectedItem as ComboBoxItem).Content as string;
-            dict[Properties.Settings.Default.APIPath] = jsonStringTextBox.Text;
-            Properties.Settings.Default.JsonString = JsonConvert.SerializeObject(dict);
+            Properties.Settings.Default.SmsJson = smsTextBox.Text;
+            Properties.Settings.Default.RingoutJson = ringoutTextBox.Text;
+            Properties.Settings.Default.FaxJson = faxTextBox.Text;
             Properties.Settings.Default.Save();
+        }
 
+        public MainWindow()
+        {
+            InitializeComponent();
+            LoadConfig();
+        }
+
+        private void Authorize()
+        {
+            SaveConfig();
             if (platform == null)
             {
                 platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
@@ -95,60 +91,49 @@ namespace TryRC
                 var extension = tokens.Length > 1 ? tokens[1] : null;
                 platform.Authorize(username, extension, passwordTextBox.Text, true);
             }
-
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0" + (apiPathComboBox.SelectedItem as ComboBoxItem).Content as string, jsonStringTextBox.Text);
-            var response = platform.Post(request);
-            Debug.WriteLine(response.GetStatus());
-            MessageBox.Show("Call API Completed", "Try RingCentral");
+        }
+        private void AuthorizeButtonClick(object sender, RoutedEventArgs e)
+        {
+            Authorize();
+            MessageBox.Show("Authorized", "Try RingCentral");
         }
 
-        private void APIPathComboBoxSelectionChanged(object sender, SelectionChangedEventArgs e)
+        private void smsButton_Click(object sender, RoutedEventArgs e)
         {
-            if (dict == null)
-            {
-                return;
-            }
-            var apiPath = (apiPathComboBox.SelectedItem as ComboBoxItem).Content as string;
-            if (dict.ContainsKey(apiPath))
-            {
-                jsonStringTextBox.Text = dict[apiPath];
-            }
-            else
-            {
-                jsonStringTextBox.Text = "";
-            }
+            Authorize();
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/sms", smsTextBox.Text);
+            var response = platform.Post(request);
+            MessageBox.Show("sms sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
 
-        private void testButton_Click(object sender, RoutedEventArgs e)
+        private void ringoutButton_Click(object sender, RoutedEventArgs e)
         {
-            const string text = "Hello world!";
-            var byteArrayText = System.Text.Encoding.UTF8.GetBytes(text);
-
-            var attachment = new RingCentral.SDK.Helper.Attachment(@"test.txt", "application/octet-stream", byteArrayText);
-            var attachment2 = new RingCentral.SDK.Helper.Attachment(@"test2.txt", "text/plain", byteArrayText);
-            var pdfFile = File.ReadAllBytes(@"C:\Users\tyler.liu\Desktop\test.pdf");
-            var attachment3 = new RingCentral.SDK.Helper.Attachment("test.pdf", "application/pdf", pdfFile);
-            var attachments = new List<RingCentral.SDK.Helper.Attachment> { attachment, attachment2, attachment3 };
-            var json = "{\"to\":[{\"phoneNumber\":\"16508370092\"}],\"faxResolution\":\"High\"}";
-
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/fax", json, attachments);
-
-            if (platform == null)
-            {
-                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
-                    apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
-            }
-
-            if (!platform.IsAuthorized())
-            {
-                var tokens = usernameTextBox.Text.Split('-');
-                var username = tokens[0];
-                var extension = tokens.Length > 1 ? tokens[1] : null;
-                platform.Authorize(username, extension, passwordTextBox.Text, true);
-            }
-
+            Authorize();
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/ringout", ringoutTextBox.Text);
             var response = platform.Post(request);
-            Debug.WriteLine(response.GetStatus());
+            MessageBox.Show("ringout started, response status: " + response.GetStatus(), "Try RingCentral");
+        }
+
+        private void faxButton_Click(object sender, RoutedEventArgs e)
+        {
+            Authorize();
+
+            var attachments = new List<RingCentral.SDK.Helper.Attachment>();
+
+            var textBytes = System.Text.Encoding.UTF8.GetBytes("hello fax");
+            var attachment = new RingCentral.SDK.Helper.Attachment(@"test.txt", "application/octet-stream", textBytes);
+            attachments.Add(attachment);
+            var attachment2 = new RingCentral.SDK.Helper.Attachment(@"test2.txt", "text/plain", textBytes);
+            attachments.Add(attachment2);
+
+            // uncomment below to send a pdf file
+            //var pdfBytes = File.ReadAllBytes(@"C:\Users\tyler.liu\Desktop\test.pdf");
+            //var attachment3 = new RingCentral.SDK.Helper.Attachment("test.pdf", "application/pdf", pdfBytes);
+            //attachments.Add(attachment3);
+
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/fax", faxTextBox.Text, attachments);
+            var response = platform.Post(request);
+            MessageBox.Show("fax sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
     }
 }

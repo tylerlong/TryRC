@@ -110,24 +110,36 @@ namespace TryRC.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string APIPath {
+        public string SmsJson {
             get {
-                return ((string)(this["APIPath"]));
+                return ((string)(this["SmsJson"]));
             }
             set {
-                this["APIPath"] = value;
+                this["SmsJson"] = value;
             }
         }
         
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string JsonString {
+        public string RingoutJson {
             get {
-                return ((string)(this["JsonString"]));
+                return ((string)(this["RingoutJson"]));
             }
             set {
-                this["JsonString"] = value;
+                this["RingoutJson"] = value;
+            }
+        }
+        
+        [global::System.Configuration.UserScopedSettingAttribute()]
+        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
+        [global::System.Configuration.DefaultSettingValueAttribute("")]
+        public string FaxJson {
+            get {
+                return ((string)(this["FaxJson"]));
+            }
+            set {
+                this["FaxJson"] = value;
             }
         }
     }
