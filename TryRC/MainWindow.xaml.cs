@@ -1,6 +1,7 @@
 ﻿using Newtonsoft.Json;
 using System.Collections.Generic;
 using System.Diagnostics;
+using System.IO;
 using System.Windows;
 using System.Windows.Controls;
 
@@ -116,6 +117,38 @@ namespace TryRC
             {
                 jsonStringTextBox.Text = "";
             }
+        }
+
+        private void testButton_Click(object sender, RoutedEventArgs e)
+        {
+            const string text = "Hello world!";
+            var byteArrayText = System.Text.Encoding.UTF8.GetBytes(text);
+
+            var attachment = new RingCentral.SDK.Helper.Attachment(@"test.txt", "application/octet-stream", byteArrayText);
+            var attachment2 = new RingCentral.SDK.Helper.Attachment(@"test2.txt", "text/plain", byteArrayText);
+            var pdfFile = File.ReadAllBytes(@"C:\Users\tyler.liu\Desktop\test.pdf");
+            var attachment3 = new RingCentral.SDK.Helper.Attachment("test.pdf", "application/pdf", pdfFile);
+            var attachments = new List<RingCentral.SDK.Helper.Attachment> { attachment, attachment2, attachment3 };
+            var json = "{\"to\":[{\"phoneNumber\":\"16508370092\"}],\"faxResolution\":\"High\"}";
+
+            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/fax", json, attachments);
+
+            if (platform == null)
+            {
+                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
+                    apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
+            }
+
+            if (!platform.IsAuthorized())
+            {
+                var tokens = usernameTextBox.Text.Split('-');
+                var username = tokens[0];
+                var extension = tokens.Length > 1 ? tokens[1] : null;
+                platform.Authorize(username, extension, passwordTextBox.Text, true);
+            }
+
+            var response = platform.Post(request);
+            Debug.WriteLine(response.GetStatus());
         }
     }
 }

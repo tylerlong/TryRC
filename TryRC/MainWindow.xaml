@@ -5,7 +5,7 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TryRC"
         mc:Ignorable="d"
-        Title="Try RC" Height="600" Width="512" Icon="rc.ico">
+        Title="Try RC" Height="640" Width="512" Icon="rc.ico">
     <StackPanel>
         <DockPanel Margin="8">
             <Label Content="APP Key:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
@@ -48,5 +48,6 @@
             <TextBox x:Name="jsonStringTextBox" Height="128" AcceptsReturn="True" TextWrapping="Wrap"/>
         </DockPanel>
         <Button x:Name="runButton" Content="Call API" Margin="8" Height="32" Width="128" Click="runButton_Click"/>
+        <Button x:Name="testButton" Content="Run Test" Margin="8" Height="32" Width="128" Click="testButton_Click"/>
     </StackPanel>
 </Window>
