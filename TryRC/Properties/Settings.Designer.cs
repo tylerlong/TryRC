@@ -50,36 +50,12 @@ namespace TryRC.Properties {
         [global::System.Configuration.UserScopedSettingAttribute()]
         [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
         [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string APIEndPoint {
+        public string Server {
             get {
-                return ((string)(this["APIEndPoint"]));
+                return ((string)(this["Server"]));
             }
             set {
-                this["APIEndPoint"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AppName {
-            get {
-                return ((string)(this["AppName"]));
-            }
-            set {
-                this["AppName"] = value;
-            }
-        }
-        
-        [global::System.Configuration.UserScopedSettingAttribute()]
-        [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
-        [global::System.Configuration.DefaultSettingValueAttribute("")]
-        public string AppVersion {
-            get {
-                return ((string)(this["AppVersion"]));
-            }
-            set {
-                this["AppVersion"] = value;
+                this["Server"] = value;
             }
         }
         

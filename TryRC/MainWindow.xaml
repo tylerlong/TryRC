@@ -5,8 +5,12 @@
         xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
         xmlns:local="clr-namespace:TryRC"
         mc:Ignorable="d"
-        Title="Try RC" Height="900" Width="512" Icon="rc.ico">
+        Title="Try RC" Height="800" Width="512" Icon="rc.ico">
     <StackPanel>
+        <DockPanel Margin="8">
+            <Label Content="Server:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="serverTextBox" Height="28"/>
+        </DockPanel>
         <DockPanel Margin="8">
             <Label Content="APP Key:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
             <TextBox x:Name="appKeyTextBox" Height="28"/>
@@ -14,18 +18,6 @@
         <DockPanel Margin="8">
             <Label Content="APP Secret:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
             <TextBox x:Name="appSecretTextBox" Height="28"/>
-        </DockPanel>
-        <DockPanel Margin="8">
-            <Label Content="API EndPoint:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="apiEndPointTextBox" Height="28"/>
-        </DockPanel>
-        <DockPanel Margin="8">
-            <Label Content="APP Name:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="appNameTextBox" Height="28"/>
-        </DockPanel>
-        <DockPanel Margin="8">
-            <Label Content="APP Version:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="appVersionTextBox" Height="28"/>
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="Username:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
