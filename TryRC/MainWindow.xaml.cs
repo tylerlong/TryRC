@@ -90,7 +90,7 @@ namespace TryRC
         private void smsButton_Click(object sender, RoutedEventArgs e)
         {
             Authorize();
-            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/sms", smsTextBox.Text);
+            var request = new RingCentral.Http.Request("/account/~/extension/~/sms", smsTextBox.Text);
             var response = platform.Post(request);
             MessageBox.Show("sms sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
@@ -98,7 +98,7 @@ namespace TryRC
         private void ringoutButton_Click(object sender, RoutedEventArgs e)
         {
             Authorize();
-            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/ringout", ringoutTextBox.Text);
+            var request = new RingCentral.Http.Request("/account/~/extension/~/ringout", ringoutTextBox.Text);
             var response = platform.Post(request);
             MessageBox.Show("ringout started, response status: " + response.GetStatus(), "Try RingCentral");
         }
@@ -120,7 +120,7 @@ namespace TryRC
             //var attachment3 = new RingCentral.SDK.Helper.Attachment("test.pdf", "application/pdf", pdfBytes);
             //attachments.Add(attachment3);
 
-            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/fax", faxTextBox.Text, attachments);
+            var request = new RingCentral.Http.Request("/account/~/extension/~/fax", faxTextBox.Text, attachments);
             var response = platform.Post(request);
             MessageBox.Show("fax sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
