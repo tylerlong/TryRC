@@ -8,7 +8,7 @@ namespace TryRC
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RingCentral.SDK.Platform platform;
+        private RingCentral.Platform platform;
 
         private void LoadConfig()
         {
@@ -80,7 +80,7 @@ namespace TryRC
             SaveConfig();
             if (platform == null)
             {
-                platform = new RingCentral.SDK.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
+                platform = new RingCentral.SDK(appKeyTextBox.Text, appSecretTextBox.Text,
                     apiEndPointTextBox.Text, appNameTextBox.Text, appVersionTextBox.Text).GetPlatform();
             }
 
@@ -101,7 +101,7 @@ namespace TryRC
         private void smsButton_Click(object sender, RoutedEventArgs e)
         {
             Authorize();
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/sms", smsTextBox.Text);
+            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/sms", smsTextBox.Text);
             var response = platform.Post(request);
             MessageBox.Show("sms sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
@@ -109,7 +109,7 @@ namespace TryRC
         private void ringoutButton_Click(object sender, RoutedEventArgs e)
         {
             Authorize();
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/ringout", ringoutTextBox.Text);
+            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/ringout", ringoutTextBox.Text);
             var response = platform.Post(request);
             MessageBox.Show("ringout started, response status: " + response.GetStatus(), "Try RingCentral");
         }
@@ -118,12 +118,12 @@ namespace TryRC
         {
             Authorize();
 
-            var attachments = new List<RingCentral.SDK.Helper.Attachment>();
+            var attachments = new List<RingCentral.Helper.Attachment>();
 
             var textBytes = System.Text.Encoding.UTF8.GetBytes("hello fax");
-            var attachment = new RingCentral.SDK.Helper.Attachment(@"test.txt", "application/octet-stream", textBytes);
+            var attachment = new RingCentral.Helper.Attachment(@"test.txt", "application/octet-stream", textBytes);
             attachments.Add(attachment);
-            var attachment2 = new RingCentral.SDK.Helper.Attachment(@"test2.txt", "text/plain", textBytes);
+            var attachment2 = new RingCentral.Helper.Attachment(@"test2.txt", "text/plain", textBytes);
             attachments.Add(attachment2);
 
             // uncomment below to send a pdf file
@@ -131,7 +131,7 @@ namespace TryRC
             //var attachment3 = new RingCentral.SDK.Helper.Attachment("test.pdf", "application/pdf", pdfBytes);
             //attachments.Add(attachment3);
 
-            var request = new RingCentral.SDK.Http.Request("/restapi/v1.0/account/~/extension/~/fax", faxTextBox.Text, attachments);
+            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/fax", faxTextBox.Text, attachments);
             var response = platform.Post(request);
             MessageBox.Show("fax sent, response status: " + response.GetStatus(), "Try RingCentral");
         }
