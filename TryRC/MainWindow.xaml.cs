@@ -73,7 +73,7 @@ namespace TryRC
                 platform = new RingCentral.SDK(serverTextBox.Text, appKeyTextBox.Text, appSecretTextBox.Text).GetPlatform();
             }
 
-            if (!platform.IsAuthorized())
+            if (!platform.LoggedIn())
             {
                 var tokens = usernameTextBox.Text.Split('-');
                 var username = tokens[0];
