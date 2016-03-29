@@ -8,16 +8,16 @@
         Title="Try RC" Height="800" Width="512" Icon="rc.ico">
     <StackPanel>
         <DockPanel Margin="8">
-            <Label Content="Server:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="serverTextBox" Height="28"/>
-        </DockPanel>
-        <DockPanel Margin="8">
             <Label Content="APP Key:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
             <TextBox x:Name="appKeyTextBox" Height="28"/>
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="APP Secret:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
             <TextBox x:Name="appSecretTextBox" Height="28"/>
+        </DockPanel>
+        <DockPanel Margin="8">
+            <Label Content="Server:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
+            <TextBox x:Name="serverTextBox" Height="28"/>
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="Username:" DockPanel.Dock="Left" Margin="0 0 16 0"/>

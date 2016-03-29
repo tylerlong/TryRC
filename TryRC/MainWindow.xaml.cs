@@ -12,10 +12,6 @@ namespace TryRC
 
         private void LoadConfig()
         {
-            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Server))
-            {
-                serverTextBox.Text = Properties.Settings.Default.Server;
-            }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppKey))
             {
                 appKeyTextBox.Text = Properties.Settings.Default.AppKey;
@@ -23,6 +19,10 @@ namespace TryRC
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppSecret))
             {
                 appSecretTextBox.Text = Properties.Settings.Default.AppSecret;
+            }
+            if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Server))
+            {
+                serverTextBox.Text = Properties.Settings.Default.Server;
             }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Username))
             {
@@ -48,9 +48,9 @@ namespace TryRC
 
         private void SaveConfig()
         {
-            Properties.Settings.Default.Server = serverTextBox.Text;
             Properties.Settings.Default.AppKey = appKeyTextBox.Text;
             Properties.Settings.Default.AppSecret = appSecretTextBox.Text;
+            Properties.Settings.Default.Server = serverTextBox.Text;
             Properties.Settings.Default.Username = usernameTextBox.Text;
             Properties.Settings.Default.Password = passwordTextBox.Text;
             Properties.Settings.Default.SmsJson = smsTextBox.Text;
@@ -70,7 +70,7 @@ namespace TryRC
             SaveConfig();
             if (platform == null)
             {
-                platform = new RingCentral.SDK(serverTextBox.Text, appKeyTextBox.Text, appSecretTextBox.Text).GetPlatform();
+                platform = new RingCentral.SDK(appKeyTextBox.Text, appSecretTextBox.Text, serverTextBox.Text).GetPlatform();
             }
 
             if (!platform.LoggedIn())
