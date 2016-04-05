@@ -45,6 +45,9 @@
     <Reference Include="RingCentral">
       <HintPath>..\..\ringcentral-csharp\RingCentral\bin\Debug\RingCentral.dll</HintPath>
     </Reference>
+    <Reference Include="RingCentral.NET40">
+      <HintPath>..\..\ringcentral-csharp\RingCentral.NET40\bin\Debug\RingCentral.NET40.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.Data" />
     <Reference Include="System.Xml" />

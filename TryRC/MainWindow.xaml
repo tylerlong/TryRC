@@ -55,5 +55,6 @@
             }
         </TextBox>
         <Button x:Name="faxButton" Content="Send fax" Width="128" Height="32" Click="faxButton_Click"/>
+        <PasswordBox x:Name="passwordBox"/>
     </StackPanel>
 </Window>

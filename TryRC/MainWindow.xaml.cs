@@ -1,5 +1,7 @@
 ﻿using System.Collections.Generic;
 using System.Windows;
+using System.Diagnostics;
+using System;
 
 namespace TryRC
 {
@@ -8,7 +10,8 @@ namespace TryRC
     /// </summary>
     public partial class MainWindow : Window
     {
-        private RingCentral.Platform platform;
+        private static RingCentral.Platform platform;
+        private static string syncToken;
 
         private void LoadConfig()
         {
@@ -59,10 +62,49 @@ namespace TryRC
             Properties.Settings.Default.Save();
         }
 
+        static void ActionOnNotification(object message)
+        {
+            Debug.WriteLine("notification: {0}", message);
+
+            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/message-sync",
+                new List<KeyValuePair<string, string>> {
+                    new KeyValuePair<string, string>("syncToken", syncToken),
+                    new KeyValuePair<string, string>("syncType", "ISync"),
+                });
+            var response = platform.Get(request);
+            Debug.WriteLine(response.GetBody());
+            syncToken = response.GetJson().SelectToken("syncInfo.syncToken").ToString();
+        }
+
+        static void ActionOnConnect(object message)
+        {
+            Debug.WriteLine("connect: {0}", message);
+        }
+
+        static void ActionOnError(object error)
+        {
+            Debug.WriteLine("error: {0}", error);
+        }
+
         public MainWindow()
         {
             InitializeComponent();
             LoadConfig();
+            Authorize();
+
+            // sync all
+            var request = new RingCentral.Http.Request("/restapi/v1.0/account/~/extension/~/message-sync",
+                new List<KeyValuePair<string, string>> {
+                    new KeyValuePair<string, string>("dateFrom", DateTime.UtcNow.AddHours(-6).ToString("o")),
+                    new KeyValuePair<string, string>("syncType", "FSync"),
+                });
+            var response = platform.Get(request);
+            Debug.WriteLine(response.GetBody());
+            syncToken = response.GetJson().SelectToken("syncInfo.syncToken").ToString();
+
+            var sub = new RingCentral.Subscription.SubscriptionServiceImplementation() { _platform = platform };
+            sub.AddEvent("/restapi/v1.0/account/~/extension/~/message-store");
+            sub.Subscribe(ActionOnNotification, ActionOnConnect, ActionOnError);
         }
 
         private void Authorize()
