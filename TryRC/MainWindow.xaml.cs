@@ -18,7 +18,7 @@ namespace TryRC
             }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.AppSecret))
             {
-                appSecretTextBox.Text = Properties.Settings.Default.AppSecret;
+                appSecretTextBox.Password = Properties.Settings.Default.AppSecret;
             }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Server))
             {
@@ -30,7 +30,7 @@ namespace TryRC
             }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.Password))
             {
-                passwordTextBox.Text = Properties.Settings.Default.Password;
+                passwordTextBox.Password = Properties.Settings.Default.Password;
             }
             if (!string.IsNullOrWhiteSpace(Properties.Settings.Default.SmsJson))
             {
@@ -49,10 +49,10 @@ namespace TryRC
         private void SaveConfig()
         {
             Properties.Settings.Default.AppKey = appKeyTextBox.Text;
-            Properties.Settings.Default.AppSecret = appSecretTextBox.Text;
+            Properties.Settings.Default.AppSecret = appSecretTextBox.Password;
             Properties.Settings.Default.Server = serverTextBox.Text;
             Properties.Settings.Default.Username = usernameTextBox.Text;
-            Properties.Settings.Default.Password = passwordTextBox.Text;
+            Properties.Settings.Default.Password = passwordTextBox.Password;
             Properties.Settings.Default.SmsJson = smsTextBox.Text;
             Properties.Settings.Default.RingoutJson = ringoutTextBox.Text;
             Properties.Settings.Default.FaxJson = faxTextBox.Text;
@@ -70,7 +70,7 @@ namespace TryRC
             SaveConfig();
             if (platform == null)
             {
-                platform = new RingCentral.SDK(appKeyTextBox.Text, appSecretTextBox.Text, serverTextBox.Text).GetPlatform();
+                platform = new RingCentral.SDK(appKeyTextBox.Text, appSecretTextBox.Password, serverTextBox.Text).GetPlatform();
             }
 
             if (!platform.LoggedIn())
@@ -78,7 +78,7 @@ namespace TryRC
                 var tokens = usernameTextBox.Text.Split('-');
                 var username = tokens[0];
                 var extension = tokens.Length > 1 ? tokens[1] : null;
-                platform.Authorize(username, extension, passwordTextBox.Text, true);
+                platform.Authorize(username, extension, passwordTextBox.Password, true);
             }
         }
         private void AuthorizeButtonClick(object sender, RoutedEventArgs e)

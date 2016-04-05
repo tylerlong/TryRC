@@ -13,7 +13,7 @@
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="APP Secret:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="appSecretTextBox" Height="28"/>
+            <PasswordBox x:Name="appSecretTextBox" Height="28"/>
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="Server:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
@@ -25,7 +25,7 @@
         </DockPanel>
         <DockPanel Margin="8">
             <Label Content="Password:" DockPanel.Dock="Left" Margin="0 0 16 0"/>
-            <TextBox x:Name="passwordTextBox" Height="28"/>
+            <PasswordBox x:Name="passwordTextBox" Height="28"/>
         </DockPanel>
         <Separator Margin="8 16"/>
         <Button Content="Authroize" Width="128" Height="32" Click="AuthorizeButtonClick"/>
